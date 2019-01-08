@@ -17,6 +17,8 @@ class davyCrocket(object):
         interfaces = [sys.argv[2], sys.argv[3]]
         targetChannel = sys.argv[4]
 
+        rssiBufferSize = 15
+
         ser = serial.Serial(
             port='/dev/ttyACM0', 
             baudrate=9600, 
@@ -47,19 +49,21 @@ class davyCrocket(object):
             while True:
                 leftRssis.append(next(left))
                 rightRssis.append(next(right))
-                if(len(leftRssis) > 3 and len(rightRssis) > 3):
+                if(len(leftRssis) > rssiBufferSize and len(rightRssis) > rssiBufferSize):
                     avgLeft = numpy.mean(leftRssis)
                     avgRight = numpy.mean(rightRssis)
                     if (avgRight < avgLeft): # RSSI is in negative numbers, this means avgRight is a better signal than avgLeft
                         ser.write(b'r')
                         # end = time.time()
+                        # print("{+} Took %s seconds." % (end-start))
                         print("{+} Move right.")
                     else:
                         ser.write(b'l')
                         # end = time.time()
+                        # print("{+} Took %s seconds." % (end-start))
                         print("{+} Move left.")
-                    leftRssis = []
-                    rightRssis = []
+                    leftRssis = leftRssis[(rssiBufferSize//2):]
+                    rightRssis = rightRssis[(rssiBufferSize//2):]
         except KeyboardInterrupt:
             pass   
         except RuntimeError:
