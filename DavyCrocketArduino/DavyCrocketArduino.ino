@@ -9,7 +9,7 @@ void setup() {
  pinMode(speedPin, OUTPUT);
  pinMode(dirPin, OUTPUT);
  analogWrite(speedPin, 0);
-analogWrite(dirPin, 0);
+ analogWrite(dirPin, 0);
  Serial.println("<Arduino is ready>");
 }
 
@@ -36,13 +36,13 @@ void moveAntennas() {
  if (receivedChar == 'l') {
     Serial.println("moving left.");
     analogWrite(dirPin, 255);
-    analogWrite(speedPin, speedVar);
+    analogWrite(speedPin, 1);
     delay(75);
     analogWrite(speedPin, 0);
   } else if (receivedChar == 'r') {
     Serial.println("moving right.");
     analogWrite(dirPin, 0);
-    analogWrite(speedPin, speedVar);
+    analogWrite(speedPin, 1);
     delay(75);
     analogWrite(speedPin, 0);
   }
