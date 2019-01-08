@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import re, os, csv, time, signal, sys, getpass, tempfile, datetime
-import pyshark, numpy, serial, multiprocessing
-# import pyshark 
+import pyshark, numpy, serial
 
 from subprocess import Popen
 
