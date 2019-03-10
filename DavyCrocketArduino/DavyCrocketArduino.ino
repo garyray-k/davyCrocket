@@ -1,16 +1,15 @@
 char receivedChar;
 boolean newData = false;
-const int speedPin = 9;
+const int stepPin = 9;
 const int dirPin = 6;
-int speedVar = 1;
+int speedVar = 1000;
 
 void setup() {
  Serial.begin(9600);
- pinMode(speedPin, OUTPUT);
+ pinMode(stepPin, OUTPUT);
  pinMode(dirPin, OUTPUT);
- analogWrite(speedPin, 0);
- analogWrite(dirPin, 0);
- Serial.println("<Arduino is ready>");
+ digitalWrite(stepPin, LOW);
+ digitalWrite(dirPin, LOW);
 }
 
 void loop() {
@@ -33,18 +32,16 @@ void showNewData() {
 }
 
 void moveAntennas() {
- if (receivedChar == 'l') {
-    Serial.println("moving left.");
-    analogWrite(dirPin, 255);
-    analogWrite(speedPin, 1);
-    delay(75);
-    analogWrite(speedPin, 0);
-  } else if (receivedChar == 'r') {
-    Serial.println("moving right.");
-    analogWrite(dirPin, 0);
-    analogWrite(speedPin, 1);
-    delay(75);
-    analogWrite(speedPin, 0);
+ if (receivedChar == 'r') {
+    digitalWrite(dirPin, HIGH);
+    digitalWrite(stepPin, HIGH);
+    delay(1000);
+    digitalWrite(stepPin, LOW);
+  } else if (receivedChar == 'l') {
+    digitalWrite(dirPin, LOW);
+    digitalWrite(stepPin, HIGH);
+    delay(1000);
+    digitalWrite(stepPin, LOW);
   }
 }
 
