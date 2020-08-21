@@ -8,6 +8,12 @@ You'll have to manual input what USB port you're using and make sure the Arduino
 
 Have bench tested this successfully but have yet to actually implement all the physical components together.
 
+## Hardware Configurtation  
+
+Raspberry Pi
+Arduino
+Two Alfa Cards w/ directional antennas
+
 ===
 
 Using:
